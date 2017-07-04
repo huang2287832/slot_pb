@@ -1,0 +1,78 @@
+// -------------------------------------------------------
+//                      公共协议
+// -------------------------------------------------------
+
+// 本协议不支持单socket玩同时玩多款游戏
+
+// 登录请求
+message loginReq
+{
+    required string token   = 1; //token字符串
+    optional uint32 game_id = 2; //测试服游戏ID
+}
+
+//登录响应
+message loginResp
+{
+    required uint32 game_id   = 1; //游戏ID
+    required uint64 balance   = 2; //玩家拥有的金币数
+    required uint32 type      = 3; //1是正式玩, 2是免费, 3是测试玩家
+    required uint32 gm        = 4; //表示关闭gm
+}
+
+
+
+// 服务端和客户端交互统一的错误码提示消息
+message errResp{
+    required uint32 cmd = 1;
+    optional uint32 err_code = 2;
+    optional string err_msg = 3;
+}
+
+
+// 心跳请求
+message beatHeartReq {}
+
+// 心跳响应
+message beatHeartResp {}
+
+
+// GM命令
+message gmReq{
+    required string gm_str  = 1; //gm命令
+}
+
+message gmResp{
+
+}
+
+
+
+// 1表示服务器关闭
+// 2表示后台踢人
+// 3表示切换角色
+// 4表示客户端加速
+
+// 踢玩家下线
+message kickUserPush
+{
+    required uint32 code = 1;
+}
+
+
+
+
+// 基本数据请求
+message getBalanceReq {}
+
+// 基本数据请求响应
+message getBalanceResp
+{
+    required uint32 balance = 1;
+}
+
+// 玩家充值更新协议
+message balancePush
+{
+    required uint32 balance = 1;
+}
